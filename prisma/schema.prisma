@@ -15,6 +15,14 @@ datasource db {
 
 model Customer {
   id    String @id
-  email String @unique
+  cpf   String  @unique
   name  String
 }
+
+
+model Category {
+   id            String @id
+   name          String @unique
+   createdAtDate DateTime @default(now()) @db.Timestamp(6)
+   updatedAtDate DateTime @default(now()) @db.Timestamp(6)
+ }
