@@ -1,15 +1,13 @@
-export class Customer {
+export class CustomerEntity {
   id: string;
   name: string;
-  cpf: string;
-  email: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAtDate: Date;
+  updatedAtDate: Date;
 
-  constructor(id: string, name: string, cpf: string, email: string) {
+  constructor(id: string, name: string) {
     this.id = id;
     this.name = name;
-    this.cpf = cpf;
-    this.email = email;
+    this.createdAtDate = new Date();
+    this.updatedAtDate = new Date();
   }
 }
