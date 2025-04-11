@@ -1,8 +1,12 @@
 import { PrismaClient } from '@prisma/client';
+import { OrderStatus } from '../src/@core/order/entitites/order';
 
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.orderItems.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.order.deleteMany();
   await prisma.category.deleteMany();
   await prisma.customer.deleteMany();
 
@@ -23,6 +27,130 @@ async function main() {
       {
         id: 'cat-4',
         name: 'Sobremesa',
+      },
+    ],
+  });
+
+  await prisma.customer.createMany({
+    data: [
+      {
+        id: 'cust-1',
+        name: 'Customer-1',
+        cpf: '12345678901',
+      },
+      {
+        id: 'cust-2',
+        name: 'Customer-2',
+        cpf: '12345678902',
+      },
+      {
+        id: 'cust-3',
+        name: 'Customer-3',
+        cpf: '12345678903',
+      },
+    ],
+  });
+
+  await prisma.product.createMany({
+    data: [
+      {
+        id: 'prod-1',
+        name: 'X-Burguer',
+        description: 'Pão, carne, queijo, alface, tomate e molho',
+        categoryId: 'cat-1',
+        price: 20,
+      },
+      {
+        id: 'prod-2',
+        name: 'X-Bacon',
+        description: 'Pão, carne, bacon, queijo, alface, tomate e molho',
+        categoryId: 'cat-1',
+        price: 30,
+      },
+      {
+        id: 'prod-3',
+        name: 'Pudim',
+        description: 'Pudim de leite ninho',
+        categoryId: 'cat-4',
+        price: 10,
+      },
+      {
+        id: 'prod-4',
+        name: 'Suco',
+        description: 'Suco natural 500 mL',
+        categoryId: 'cat-3',
+        price: 8,
+      },
+      {
+        id: 'prod-5',
+        name: 'Bata frita',
+        description: 'Porção generosa de batata frita',
+        categoryId: 'cat-2',
+        price: 10,
+      },
+    ],
+  });
+
+  await prisma.order.createMany({
+    data: [
+      {
+        id: 'order-1',
+        status: OrderStatus.CONCLUDED,
+        customerId: 'cust-1',
+        price: 100,
+      },
+      {
+        id: 'order-2',
+        status: OrderStatus.PROCESSING,
+        customerId: 'cust-2',
+        price: 50,
+      },
+      {
+        id: 'order-3',
+        status: OrderStatus.READY_TO_PICKUP,
+        customerId: 'cust-1',
+        price: 100,
+      },
+      {
+        id: 'order-4',
+        status: OrderStatus.PAYMENT_DUE,
+        customerId: 'cust-1',
+        price: 150,
+      },
+      {
+        id: 'order-5',
+        status: OrderStatus.PLACED,
+        customerId: 'cust-1',
+        price: 110,
+      },
+      {
+        id: 'order-6',
+        status: OrderStatus.PROCESSING,
+        customerId: 'cust-1',
+        price: 200,
+      },
+    ],
+  });
+
+  await prisma.orderItems.createMany({
+    data: [
+      {
+        id: 'order-item-1',
+        orderId: 'order-1',
+        productId: 'prod-1',
+        quantity: 2,
+      },
+      {
+        id: 'order-item-2',
+        orderId: 'order-1',
+        productId: 'prod-2',
+        quantity: 3,
+      },
+      {
+        id: 'order-item-3',
+        orderId: 'order-2',
+        productId: 'prod-3',
+        quantity: 5,
       },
     ],
   });

@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { PrismaService } from './adapter/driven/infra/database/prisma.service';
+import { PrismaService } from './external/driven/infra/database/prisma.service';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -11,7 +11,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Fast Food')
-    .setDescription('')
+    .setDescription('Api to handle a fastfood service')
     .setVersion('1.0.0')
     .build();
 
